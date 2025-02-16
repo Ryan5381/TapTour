@@ -36,6 +36,9 @@ for (const file of modelFiles) {
   db[model.name] = model // ✅ 正確存入 `db`
 }
 
+
+
+
 // **建立模型關聯**
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {

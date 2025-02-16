@@ -25,10 +25,10 @@ app.use(express.json({ limit: '10mb' }))
 app.use(express.urlencoded({ limit: '10mb', extended: true }))
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: process.env.FRONTEND_URL || '*', // ✅ 允許環境變數設定的前端網址
     credentials: true,
   })
-)
+);
 
 // 提供靜態文件（前端）
 app.use(express.static(path.join(__dirname, 'frontend/dist')))
