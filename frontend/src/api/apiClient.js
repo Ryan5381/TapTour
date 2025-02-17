@@ -5,7 +5,7 @@ const apiClient = axios.create({
     import.meta.env.VITE_API_BASE_URL ||
     'https://taptour-production.up.railway.app/',
   headers: { 'Content-Type': 'application/json' },
-  // withCredentials: true,
+  withCredentials: true,
 })
 
 

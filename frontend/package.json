@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
+    "preview": "vite preview --host",
     "scss:watch": "npx sass src/scss/style.scss public/assets/css/style.css --watch",
     "scss:build": "npx sass src/scss/style.scss public/assets/css/style.css"
   },

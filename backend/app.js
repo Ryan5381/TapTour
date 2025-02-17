@@ -15,7 +15,6 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const port = process.env.PORT || 3000 // 使用 Railway 分配的 PORT
 
-
 // Swagger 文件設定
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
@@ -25,14 +24,25 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 app.use(express.json({ limit: '10mb' }))
 app.use(express.urlencoded({ limit: '10mb', extended: true }))
 
+// 允許的前端網址
+const allowedOrigins = [process.env.FRONTEND_URL_1, process.env.FRONTEND_URL_2]
+
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || 'https://taptour.netlify.app',
-    credentials: true, // 允許前端攜帶 cookie
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // 確保 OPTIONS 預檢請求不被阻擋
-    allowedHeaders: ['Content-Type', 'Authorization'], // 允許請求的標頭
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true)
+      } else {
+        callback(new Error('Not allowed by CORS'))
+      }
+    },
+    credentials: true, // 允許攜帶 Cookie
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   })
 )
+
+app.options('*', cors())
 
 // 提供靜態文件（前端）
 app.use(express.static(path.join(__dirname, 'frontend/dist')))
@@ -51,7 +61,6 @@ app.use('/api', routes)
 // 錯誤處理
 app.use(errorHandler)
 
-app.listen(port, () => {
-  console.log(`伺服器正運行在http://localhost:${port}`)
-  console.log(`API 文件在http://localhost:${port}/api-docs`)
+app.listen(port, '0.0.0.0', () => {
+  console.log(`伺服器正運行在 http://localhost:${port}`)
 })
