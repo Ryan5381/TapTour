@@ -26,15 +26,38 @@ const config = {
     migrationStorageExtension: 'cjs',
   },
   production: {
-    username: 'root',
+    username: process.env.DATABASE_USERNAME,
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_NAME,
+    host: process.env.DATABASE_HOST,
+    port: process.env.DATABASE_PORT || 3306, // 預設 3306
     dialect: 'mysql',
     define: {
       underscored: true,
     },
-    dialectOptions: {
-      socketPath: process.env.INSTANCE_UNIX_SOCKET, // Cloud SQL
+    migrationStorageTableName: 'SequelizeMeta',
+    migrationStorageExtension: 'cjs',
+  },
+  test: {
+    username: 'root',
+    password: null,
+    database: 'database_test',
+    host: '127.0.0.1',
+    dialect: 'mysql',
+    define: {
+      underscored: true,
+    },
+    migrationStorageExtension: 'cjs',
+  },
+  production: {
+    username: process.env.DATABASE_USERNAME, // 修正 username
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE_NAME,
+    host: process.env.DATABASE_HOST, // 加入 host
+    port: process.env.DATABASE_PORT || 3306, // Railway 可能會提供不同的 port，確保能讀取
+    dialect: 'mysql',
+    define: {
+      underscored: true,
     },
     migrationStorageTableName: 'SequelizeMeta',
     migrationStorageExtension: 'cjs',
