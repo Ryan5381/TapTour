@@ -43,7 +43,7 @@ app.get('/', (req, res) => {
 // 錯誤處理
 app.use(errorHandler)
 
-app.listen(port, () => {
-  console.log(`伺服器正運行在http://localhost:${port}`)
-  console.log(`API 文件在http://localhost:${port}/api-docs`)
+app.listen(port, '0.0.0.0', () => {
+  console.log(`🚀 伺服器正運行在 port ${port}`)
+  console.log(`📄 API 文件在 /api-docs`)
 })
