@@ -13,7 +13,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const app = express()
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 3000
 
 // Swagger 文件設定
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
@@ -26,7 +26,7 @@ app.use(express.urlencoded({ limit: '10mb', extended: true }))
 app.use(cors())
 
 // 提供靜態文件（前端）
-app.use(express.static(path.join(__dirname, 'frontend/dist')))
+// app.use(express.static(path.join(__dirname, 'frontend/dist')))
 
 // 檔案上傳設定
 app.use(expressFileUpload({
@@ -43,7 +43,7 @@ app.get('/', (req, res) => {
 // 錯誤處理
 app.use(errorHandler)
 
-app.listen(port, '0.0.0.0', () => {
+app.listen(port, () => {
   console.log(`🚀 伺服器正運行在 port ${port}`)
   console.log(`📄 API 文件在 /api-docs`)
 })
