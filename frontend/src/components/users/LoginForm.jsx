@@ -104,8 +104,10 @@ const LoginForm = () => {
           </div>
           <button
             className="google-login-button"
+            type="button"
             onClick={() => {
-              window.location.href = 'https://taptour-backend.yuanologue.com/api/users/auth/google'
+              window.location.href =
+                'https://taptour-backend.yuanologue.com/api/users/auth/google'
             }}
           >
             <img
